@@ -1,0 +1,1857 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Wander Log">
+    <title>Sri Lanka 11-Day Curated Journey</title>
+
+    <!-- Favicons and iOS Icons -->
+    <link rel="icon" type="image/jpeg" href="../icon.jpg">
+    <link rel="apple-touch-icon" href="../icon.jpg">
+    <link rel="manifest" href="../manifest.json">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <style>
+        :root {
+            --primary: #0e7490;
+            /* Ocean Blue */
+            --primary-dark: #155e75;
+            --secondary: #15803d;
+            /* Nature Green */
+            --accent: #ea580c;
+            /* Spice Orange */
+            --bg: #f8fafc;
+            --card-bg: #ffffff;
+            --text: #334155;
+            --heading: #1e293b;
+            --highlight-bg: #fff7ed;
+            --warning-bg: #fef2f2;
+            --warning-border: #ef4444;
+            --nav-bg: rgba(255, 255, 255, 0.85);
+            --border: #e2e8f0;
+            --shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.1);
+
+            /* Liquid Glass Variables */
+            --glass-bg: rgba(255, 255, 255, 0.7);
+            --glass-border: rgba(255, 255, 255, 0.4);
+            --glass-blur: blur(20px) saturate(180%);
+            --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
+
+            /* Semantic Colors */
+            --tag-coast: #0ea5e9;
+            /* Sky 500 */
+            --tag-hill: #22c55e;
+            /* Green 500 */
+            --tag-culture: #d97706;
+            /* Amber 600 */
+            --tag-city: #6366f1;
+            /* Indigo 500 */
+
+            --text-morning: #f97316;
+            /* Orange 500 */
+            --text-day: #0d9488;
+            /* Teal 600 */
+            --text-evening: #7c3aed;
+            /* Violet 600 */
+            --text-food: #db2777;
+            /* Pink 600 */
+        }
+
+        /* ... (rest of css) ... */
+
+        /* Semantic Utility Classes */
+        .tag-coast {
+            background-color: var(--tag-coast) !important;
+        }
+
+        .tag-hill {
+            background-color: var(--tag-hill) !important;
+        }
+
+        .tag-culture {
+            background-color: var(--tag-culture) !important;
+        }
+
+        .tag-city {
+            background-color: var(--tag-city) !important;
+        }
+
+        /* Refined Date Tag */
+        .day-tag {
+            background-color: var(--bg);
+            color: var(--text);
+            border: 1px solid var(--border);
+            opacity: 0.8;
+        }
+
+        /* Scroll Reveal Animation */
+        .reveal-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s cubic-bezier(0.5, 0, 0, 1);
+        }
+
+        .reveal-on-scroll.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @view-transition {
+            navigation: auto;
+        }
+
+        body.dark-mode {
+            --primary: #22d3ee;
+            --primary-dark: #67e8f9;
+            --secondary: #4ade80;
+            --accent: #fb923c;
+            --bg: #0f172a;
+            --card-bg: #1e293b;
+            --text: #e2e8f0;
+            --heading: #f1f5f9;
+            --highlight-bg: #334155;
+            --warning-bg: #450a0a;
+            --warning-border: #ef4444;
+            --nav-bg: rgba(30, 41, 59, 0.85);
+            --border: #334155;
+            --shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+            --info-item-bg: #1e293b;
+
+            /* Liquid Glass Variables Dark */
+            --glass-bg: rgba(30, 41, 59, 0.7);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+        }
+
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            margin: 0;
+            background-color: var(--bg);
+            color: var(--text);
+            padding: 0;
+            padding-bottom: 40px;
+            line-height: 1.6;
+            letter-spacing: -0.01em;
+            scroll-behavior: smooth;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        h1,
+        h2,
+        h3 {
+            color: var(--heading);
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            line-height: 1.2;
+        }
+
+
+
+        .container {
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 0 15px;
+            position: relative;
+        }
+
+        /* Timeline Effect */
+        .timeline-line {
+            position: absolute;
+            left: 35px;
+            top: 250px;
+            bottom: 100px;
+            width: 2px;
+            background: repeating-linear-gradient(to bottom, #cbd5e1 0, #cbd5e1 10px, transparent 10px, transparent 20px);
+            z-index: 0;
+        }
+
+        /* Header */
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 30px 20px 35px 20px;
+            border-bottom: none;
+            background: linear-gradient(135deg, #0e7490 0%, #22d3ee 100%);
+            border-radius: 0 0 30px 30px;
+            box-shadow: 0 20px 40px -10px rgba(14, 116, 144, 0.4);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at top right, rgba(255, 255, 255, 0.1) 0%, transparent 60%);
+            pointer-events: none;
+        }
+
+        h1 {
+            font-size: 2.8rem;
+            margin: 0 0 10px 0;
+            color: white;
+            letter-spacing: -0.03em;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .subtitle {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.1rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+
+
+        .btn {
+            background-color: var(--heading);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: background 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            -webkit-appearance: none;
+            appearance: none;
+        }
+
+        .btn:hover {
+            background-color: var(--primary);
+        }
+
+        /* Itinerary Cards */
+        .day-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 24px;
+            box-shadow: var(--glass-shadow);
+            margin-bottom: 25px;
+            overflow: hidden;
+            page-break-inside: avoid;
+            border: 1px solid var(--glass-border);
+            position: relative;
+            z-index: 1;
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s;
+        }
+
+        .day-header {
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            background: transparent;
+            user-select: none;
+            /* Prevent text selection on click */
+            -webkit-tap-highlight-color: transparent;
+            /* Remove tap highlight on mobile */
+        }
+
+        .day-header:active {
+            background-color: #f1f5f9;
+        }
+
+        .day-title-group {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .day-number {
+            font-size: 2rem;
+            color: #cbd5e1;
+            font-weight: 700;
+            line-height: 1;
+            min-width: 45px;
+            /* Ensure alignment */
+        }
+
+        .day-title {
+            margin: 0;
+            color: var(--heading);
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+
+        .day-tag {
+            background-color: var(--highlight-bg);
+            color: var(--accent);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            display: inline-block;
+            margin-top: 6px;
+            border: 1px solid rgba(234, 88, 12, 0.1);
+        }
+
+        .accordion-icon {
+            font-size: 1.2rem;
+            color: var(--primary);
+            transition: transform 0.3s ease;
+        }
+
+        .day-card.open .accordion-icon {
+            transform: rotate(180deg);
+        }
+
+        .day-content {
+            padding: 0 20px 25px 20px;
+            display: none;
+            border-top: 1px solid var(--glass-border);
+        }
+
+        .day-card.open .day-content {
+            display: block;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-5px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Info Grid */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .info-item {
+            background: var(--info-item-bg, #f1f5f9);
+            padding: 12px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 0.9rem;
+            border: 1px solid transparent;
+        }
+
+        .dark-mode .info-item {
+            border-color: var(--border);
+        }
+
+        .info-icon {
+            font-size: 1.2rem;
+        }
+
+        /* Content Styling */
+        h3 {
+            color: var(--heading);
+            margin-top: 25px;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 6px;
+        }
+
+        ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        .feature-box,
+        .option-box,
+        .warning-box {
+            padding: 15px;
+            margin-top: 20px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+        }
+
+        .feature-box {
+            background-color: var(--highlight-bg);
+            border-left: 4px solid var(--accent);
+        }
+
+        .option-box {
+            background-color: #f0fdf4;
+            border-left: 4px solid var(--secondary);
+        }
+
+        .warning-box {
+            background: var(--warning-bg);
+            border-left: 4px solid var(--warning-border);
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            color: var(--text);
+        }
+
+        .photo-spot {
+            color: #be123c;
+            font-weight: 700;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            background: #fff1f2;
+            padding: 2px 5px;
+            border-radius: 4px;
+            margin-right: 5px;
+        }
+
+        .food-spot {
+            color: #0369a1;
+            font-weight: 700;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            margin-top: 60px;
+            color: #94a3b8;
+            font-size: 0.85rem;
+            padding-bottom: 40px;
+        }
+
+        /* Region Labels */
+        .region-label {
+            position: absolute;
+            top: 15px;
+            right: 50px;
+            /* Adjusted to not overlap accordion icon */
+            background: var(--primary);
+            color: white;
+            font-size: 0.65rem;
+            padding: 3px 8px;
+            border-radius: 10px;
+            text-transform: uppercase;
+            font-weight: bold;
+            opacity: 0.8;
+        }
+
+        .hill .region-label {
+            background: var(--secondary);
+        }
+
+        .culture .region-label {
+            background: #d97706;
+        }
+
+        .city .region-label {
+            background: #475569;
+        }
+
+        /* Mobile Optimization */
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            .subtitle {
+                font-size: 1rem;
+            }
+
+            .timeline-line {
+                display: none;
+            }
+
+            /* Remove timeline line on small screens */
+
+            .day-header {
+                padding: 15px;
+            }
+
+            .day-number {
+                font-size: 1.5rem;
+                min-width: 35px;
+            }
+
+            .day-title {
+                font-size: 1.1rem;
+            }
+
+            .region-label {
+                position: static;
+                display: inline-block;
+                margin-bottom: 5px;
+            }
+
+            .sticky-nav {
+                justify-content: flex-start;
+                padding-left: 15px;
+                padding-right: 15px;
+            }
+
+            .container {
+                margin-top: 10px;
+            }
+
+            .day-content {
+                padding: 0 15px 20px 15px;
+            }
+        }
+
+        /* Print Styles */
+        @media print {
+            body {
+                background: white;
+                font-size: 12pt;
+            }
+
+            .container {
+                max-width: 100%;
+                margin: 0;
+                padding: 0;
+            }
+
+            .sticky-nav,
+            .controls,
+            .accordion-icon {
+                display: none;
+            }
+
+            .day-card {
+                box-shadow: none;
+                border: 1px solid #ccc;
+                margin-bottom: 20px;
+                break-inside: avoid;
+            }
+
+            .day-content {
+                display: block !important;
+            }
+
+            header {
+                margin-bottom: 20px;
+                padding: 0;
+                border: none;
+                box-shadow: none;
+            }
+
+            a {
+                text-decoration: none;
+                color: black;
+            }
+
+            .timeline-line {
+                display: none;
+            }
+        }
+
+        /* Checklist Styles */
+        ul.checklist {
+            list-style: none;
+            padding: 0;
+        }
+
+        ul.checklist li {
+            position: relative;
+            padding-left: 30px;
+            padding-top: 8px;
+            padding-bottom: 8px;
+            padding-right: 10px;
+            margin-bottom: 8px;
+            cursor: pointer;
+            transition: opacity 0.2s;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        ul.checklist li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 4px;
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--border);
+            border-radius: 6px;
+            background: var(--card-bg);
+            transition: all 0.2s;
+        }
+
+        ul.checklist li.checked {
+            text-decoration: line-through;
+            opacity: 0.7;
+        }
+
+        ul.checklist li.checked::before {
+            background-color: var(--primary);
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'%3E%3C/polyline%3E%3C/svg%3E");
+        }
+
+
+        /* Floating Action Buttons */
+        .fab-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            z-index: 1000;
+        }
+
+        .fab {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.5rem;
+            transition: transform 0.2s, background 0.2s;
+        }
+
+        .fab:hover {
+            transform: scale(1.1);
+        }
+
+        .fab:active {
+            transform: scale(0.95);
+        }
+
+        /* Bottom Navigation Bar (Mobile Only) */
+        .bottom-nav {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .fab-container {
+                top: calc(10px + env(safe-area-inset-top));
+                right: calc(8px + env(safe-area-inset-right));
+                gap: 0;
+            }
+
+            .fab-container .fab:not(:first-child) {
+                display: none;
+            }
+
+            .fab {
+                width: 44px;
+                height: 44px;
+                font-size: 1.2rem;
+            }
+
+            .bottom-nav {
+                display: flex;
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                background: var(--glass-bg);
+                backdrop-filter: var(--glass-blur);
+                -webkit-backdrop-filter: var(--glass-blur);
+                border-top: 1px solid var(--glass-border);
+                box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.05);
+                padding: 12px 0 calc(12px + env(safe-area-inset-bottom));
+                z-index: 1000;
+                justify-content: space-around;
+                align-items: center;
+                transition: all 0.3s ease;
+            }
+
+            .dark-mode .bottom-nav {
+                background: var(--glass-bg);
+                border-top: 1px solid var(--glass-border);
+            }
+
+            .bottom-nav-btn {
+                background: none;
+                border: none;
+                color: var(--text);
+                font-size: 1.5rem;
+                cursor: pointer;
+                padding: 8px 16px;
+                border-radius: 12px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 4px;
+                transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+                opacity: 0.7;
+            }
+
+            .bottom-nav-btn.active,
+            .bottom-nav-btn:active {
+                transform: scale(0.95);
+                opacity: 1;
+                color: var(--primary);
+                background: rgba(14, 116, 144, 0.1);
+            }
+
+            .dark-mode .bottom-nav-btn.active,
+            .dark-mode .bottom-nav-btn:active {
+                background: rgba(34, 211, 238, 0.1);
+            }
+
+            /* Full-screen mobile popups (Sheet style) */
+            .popup {
+                position: fixed;
+                top: auto;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                width: 100%;
+                height: auto;
+                max-height: 85vh;
+                border-radius: 24px 24px 0 0;
+                padding: 25px 20px calc(30px + env(safe-area-inset-bottom)) 20px;
+                transform: translateY(100%);
+                transform-origin: bottom;
+                overflow-y: auto;
+                z-index: 1001;
+                background: var(--card-bg);
+                /* Fallback */
+                background: var(--glass-bg);
+                backdrop-filter: blur(20px);
+                -webkit-backdrop-filter: blur(20px);
+                border-top: 1px solid var(--glass-border);
+                box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.2);
+                transition: transform 0.4s cubic-bezier(0.32, 0.72, 0, 1);
+            }
+
+            /* Drag Handle */
+            .popup::before {
+                content: '';
+                position: absolute;
+                top: 10px;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 40px;
+                height: 5px;
+                background: rgba(0, 0, 0, 0.1);
+                border-radius: 10px;
+            }
+
+            .dark-mode .popup::before {
+                background: rgba(255, 255, 255, 0.2);
+            }
+
+            .popup.active {
+                transform: translateY(0);
+            }
+
+            .popup-close {
+                display: block;
+            }
+
+            .popup h3 {
+                margin-top: 30px;
+            }
+
+            .popup .btn {
+                padding: 14px 20px;
+                font-size: 1rem;
+            }
+
+            /* Larger touch areas for links in popups */
+            .popup a {
+                padding: 12px;
+                min-height: 44px;
+            }
+
+            /* Better spacing for currency table */
+            .currency-table td {
+                padding: 12px 8px;
+            }
+        }
+
+
+        /* Desktop Modal/Popup */
+        @media (min-width: 769px) {
+            .popup {
+                position: fixed;
+                top: 20px;
+                right: 90px;
+                transform: none;
+                background: var(--card-bg);
+                color: var(--text);
+                padding: 20px;
+                border-radius: 16px;
+                box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+                width: 300px;
+                z-index: 999;
+                opacity: 0;
+                pointer-events: none;
+                transition: all 0.2s ease;
+                border: 1px solid var(--border);
+                transform-origin: top right;
+                transform: scale(0.95);
+            }
+
+            .popup.active {
+                opacity: 1;
+                transform: scale(1);
+                pointer-events: all;
+            }
+        }
+
+        .popup h3 {
+            margin-top: 0;
+            color: var(--primary);
+        }
+
+        .popup-close {
+            display: none;
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: none;
+            font-size: 1.8rem;
+            cursor: pointer;
+            color: var(--text);
+            padding: 5px;
+            line-height: 1;
+            opacity: 0.7;
+            transition: opacity 0.2s;
+        }
+
+        .popup-close:hover {
+            opacity: 1;
+        }
+
+        .currency-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .currency-table td {
+            padding: 8px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .map-link {
+            color: var(--primary);
+            text-decoration: none;
+            border-bottom: none;
+        }
+
+        /* Scroll Reveal Animation */
+        .reveal-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s cubic-bezier(0.5, 0, 0, 1);
+        }
+
+        .reveal-on-scroll.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+
+<body>
+
+
+
+    <div class="container">
+        <!-- Visual Timeline Line (Desktop Only) -->
+        <div class="timeline-line"></div>
+
+
+
+        <header>
+            <h1>Sri Lanka Expedition</h1>
+            <div class="subtitle">Beaches, Highlands & Ancient Cities</div>
+            <p style="color: rgba(255,255,255,0.8); margin-top: 10px; font-weight: 500;">Nov 27 – Dec 7, 2025</p>
+        </header>
+
+        <!-- Day 1 -->
+        <div class="day-card coast" id="day1" onclick="toggleDay(this)">
+            <div class="day-header">
+                <div class="day-title-group">
+                    <span class="day-number">01</span>
+                    <div>
+                        <div class="region-label tag-coast">The Coast</div>
+                        <h2 class="day-title">Arrival & The Dutch Fort</h2>
+                        <span class="day-tag">Nov 27</span>
+                    </div>
+                </div>
+                <span class="accordion-icon">▼</span>
+            </div>
+            <div class="day-content">
+                <div class="info-grid">
+                    <div class="info-item">
+                        <span class="info-icon">🚗</span>
+                        <div><strong>Drive:</strong> Negombo ➝ Galle<br>~2 hours (Highway)</div>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-icon">🛌</span>
+                        <div><strong>Sleep:</strong> Galle Fort or Unawatuna</div>
+                    </div>
+                </div>
+
+                <p><strong>Arrival:</strong> Land at Colombo Bandaranaike Airport (~3:00 AM). Transfer to Negombo hotel
+                    for immediate rest.</p>
+
+                <h3 class="text-morning">🌅 Morning: The Fish Market</h3>
+                <ul>
+                    <li>Wake up late morning. Before leaving, make a quick stop at the <strong>Negombo Fish Market
+                            (Lellama)</strong>. Even mid-morning, seeing the vast fields of fish drying in the sun is a
+                        unique cultural sight.</li>
+                    <li>Depart via the Southern Expressway directly to Galle, bypassing Colombo traffic.</li>
+                </ul>
+
+                <h3 class="text-day">🏰 Afternoon: Galle Fort (UNESCO)</h3>
+                <ul>
+                    <li>Arrive in <strong>Galle Fort</strong>, a 16th-century walled town. Wander the narrow lanes lined
+                        with Dutch-colonial villas, churches, and boutiques.</li>
+                    <li><strong>Activity:</strong> Walk the 400-year-old ramparts. Start at the <strong>Old
+                            Gate</strong> and walk towards the <strong>Lighthouse</strong>.</li>
+                    <li><span class="photo-spot">📸 Photo Spot</span> <strong>Galle Lighthouse</strong> framed by palm
+                        trees; the view from the ramparts looking down at the cricket ground.</li>
+                </ul>
+
+                <h3 class="text-evening">🌇 Evening: Flag Rock Sunset</h3>
+                <ul>
+                    <li>Head to <strong>Flag Rock Bastion</strong> at the fort’s southern end. Watch locals perform
+                        daredevil cliff jumps into the ocean.</li>
+                    <li><strong>Sunset:</strong> This is the prime spot to watch the sun dip below the Indian Ocean.
+                    </li>
+                    <li>Transfer to Unawatuna (15 mins) to settle in.</li>
+                </ul>
+
+                <div class="feature-box">
+                    🍽️ <strong>Food & Drink:</strong><br>
+                    • Lunch: <span class="food-spot">Lucky Fort Restaurant</span> (Galle) - Famous for their "10-curry
+                    platter" sampler.<br>
+                    • Dinner: <span class="food-spot">Kingfisher</span> or <span class="food-spot">Happy Banana</span>
+                    (Unawatuna) - Fresh seafood with your feet in the sand.
+                </div>
+            </div>
+        </div>
+
+        <!-- Day 2 -->
+        <div class="day-card coast" id="day2" onclick="toggleDay(this)">
+            <div class="day-header">
+                <div class="day-title-group">
+                    <span class="day-number">02</span>
+                    <div>
+                        <div class="region-label tag-coast">The Coast</div>
+                        <h2 class="day-title">Swings, Pools & Surf Coast</h2>
+                        <span class="day-tag">Nov 28</span>
+                    </div>
+                </div>
+                <span class="accordion-icon">▼</span>
+            </div>
+            <div class="day-content">
+                <div class="info-grid">
+                    <div class="info-item">
+                        <span class="info-icon">🚗</span>
+                        <div><strong>Drive:</strong> Unawatuna Area<br>Short local hops</div>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-icon">🛌</span>
+                        <div><strong>Sleep:</strong> Mirissa (or Weligama)</div>
+                    </div>
+                </div>
+
+                <h3 class="text-morning">🏖️ Morning: Unawatuna & Dalawella</h3>
+                <ul>
+                    <li>Relax at <strong>Unawatuna Beach</strong> (calm swimming) or hike 15 mins to <strong>Jungle
+                            Beach</strong> (more secluded).</li>
+                    <li>Visit <strong>Dalawella Beach</strong> (Wijaya Beach). Here you find the famous <strong>Palm
+                            Tree Rope Swing</strong>.</li>
+                    <li><span class="photo-spot">📸 Photo Spot</span> Swinging out over the ocean at Dalawella (small
+                        fee applies). Also look for wild sea turtles swimming near the shore here.</li>
+                </ul>
+
+                <h3 class="text-day">🌊 Midday: Thalpe Rock Pools</h3>
+                <ul>
+                    <li>Stop at <strong>Thalpe Beach</strong>. At low tide, square "baths" carved into the coral reef
+                        are visible. It's a unique geological formation and great for a cooling dip.</li>
+                </ul>
+
+                <h3 class="text-day">🏄 Afternoon: Watching the Waves</h3>
+                <ul>
+                    <li>Drive east past <strong>Kabalana Beach ("The Rock")</strong> and <strong>Midigama</strong>.</li>
+                    <li>Even though you aren't surfing, these are cool vibe towns. Stop to watch the surfers carving the
+                        waves from the safety of the beach.</li>
+                    <li>Look for <strong>Stilt Fishermen</strong> in Ahangama/Koggala (they often pose for tips in late
+                        afternoon).</li>
+                </ul>
+
+                <div class="feature-box">
+                    🍽️ <strong>Food & Drink:</strong><br>
+                    • Lunch: <span class="food-spot">Cafe Ceylon</span> (Midigama) or <span
+                        class="food-spot">Nomad</span> (Weligama) for healthy smoothie bowls.<br>
+                    • Drink with a View: <span class="food-spot">The Cliff</span> (Weligama) - Perched on a headland
+                    with breathtaking ocean panoramas.
+                </div>
+            </div>
+        </div>
+
+        <!-- Day 3 -->
+        <div class="day-card coast" id="day3" onclick="toggleDay(this)">
+            <div class="day-header">
+                <div class="day-title-group">
+                    <span class="day-number">03</span>
+                    <div>
+                        <div class="region-label tag-coast">The Coast</div>
+                        <h2 class="day-title">Mirissa Highlights & Sunset</h2>
+                        <span class="day-tag">Nov 29</span>
+                    </div>
+                </div>
+                <span class="accordion-icon">▼</span>
+            </div>
+            <div class="day-content">
+                <div class="info-grid">
+                    <div class="info-item">
+                        <span class="info-icon">🚗</span>
+                        <div><strong>Drive:</strong> Mirissa Local<br>Tuk-tuks or walking</div>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-icon">🛌</span>
+                        <div><strong>Sleep:</strong> Mirissa</div>
+                    </div>
+                </div>
+
+                <h3 class="text-morning">🌴 Morning: Coconut Tree Hill</h3>
+                <ul>
+                    <li>Walk to <strong>Coconut Tree Hill</strong> early (around 7:00 AM) to beat the heat and crowds.
+                    </li>
+                    <li><span class="photo-spot">📸 Photo Spot</span> The rows of palms leaning over the ocean on this
+                        red-earth promontory. It is one of the most famous shots in Sri Lanka.</li>
+                </ul>
+
+                <h3 class="text-day">🐠 Midday: Secret Beach</h3>
+                <ul>
+                    <li>Take a tuk-tuk to <strong>Secret Beach</strong>. It’s a small cove hidden behind a hill.</li>
+                    <li>Great for snorkeling or just relaxing at the rustic beach bar with a coconut. It feels miles
+                        away from the main town.</li>
+                </ul>
+
+                <h3 class="text-evening">🌅 Evening: Sunset in Mirissa</h3>
+                <ul>
+                    <li><strong>Must-Do:</strong> Watch the sunset at <strong>Parrot Rock</strong> (a small tidal island
+                        you can climb) or return to Coconut Tree Hill if you missed the morning view.</li>
+                    <li>Mirissa Beach comes alive at night with candlelit tables on the sand.</li>
+                </ul>
+
+                <div class="warning-box">
+                    ⚠️ <strong>Pro Tip (Transport):</strong> Be aware of the "Tuk-Tuk Mafia" in Mirissa. Ride-hailing
+                    apps like PickMe/Uber often struggle here at night as locals block them. Carry cash and agree on a
+                    price before hopping into a street tuk-tuk.
+                </div>
+
+                <div class="feature-box">
+                    🍽️ <strong>Food & Drink:</strong><br>
+                    • Breakfast: <span class="food-spot">Dewmini Roti Shop</span> - Famous for avocado or chocolate
+                    stuffed rotis.<br>
+                    • Dinner: <span class="food-spot">Zephyr</span> or <span class="food-spot">Mirissa Beach
+                        Shack</span> - Pick your fresh fish/crab from the display and have it grilled.
+                </div>
+            </div>
+        </div>
+
+        <!-- Day 4 -->
+        <div class="day-card coast" id="day4" onclick="toggleDay(this)">
+            <div class="day-header">
+                <div class="day-title-group">
+                    <span class="day-number">04</span>
+                    <div>
+                        <div class="region-label tag-coast">The Coast</div>
+                        <h2 class="day-title">Lighthouses, Swings & Bays</h2>
+                        <span class="day-tag">Nov 30</span>
+                    </div>
+                </div>
+                <span class="accordion-icon">▼</span>
+            </div>
+            <div class="day-content">
+                <div class="info-grid">
+                    <div class="info-item">
+                        <span class="info-icon">🚗</span>
+                        <div><strong>Drive:</strong> Mirissa ➝ Hiriketiya<br>~1.5 - 2 hours</div>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-icon">🛌</span>
+                        <div><strong>Sleep:</strong> Hiriketiya</div>
+                    </div>
+                </div>
+
+                <h3 class="text-morning">📸 Morning: The Southern Tip</h3>
+                <ul>
+                    <li><strong>Stop 1:</strong> <strong>Dondra Head Lighthouse</strong>. The tallest lighthouse in Sri
+                        Lanka and the absolute southernmost tip of the island. (Quick 20-min detour near Matara).</li>
+                    <li><strong>Stop 2:</strong> <strong>Dikwella Beach</strong> for the <strong>Twin Coconut Tree
+                            Swing</strong>.</li>
+                    <li><span class="photo-spot">📸 Photo Spot</span> The Swing is iconic. Also visit <strong>Blue Beach
+                            Island</strong> in Nilwella (sandbar walk at low tide).</li>
+                </ul>
+
+                <div class="option-box">
+                    <strong>Alternative Options (Choose one):</strong><br>
+                    🔹 <strong>Hummanaya Blowhole</strong>: Located near Dikwella. The 2nd largest in the world; shoots
+                    water 20-30m high when rough.<br>
+                    🔹 <strong>Mulkirigala Raja Maha Vihara</strong>: The "Rock Temple of the South." Ancient caves with
+                    reclining Buddhas. Swap this with Blue Beach Island if you prefer history/culture.
+                </div>
+
+                <h3 class="text-day">🏝️ Midday: Silent Beach</h3>
+                <ul>
+                    <li>Visit <strong>Silent Beach (Amanwella)</strong> in Tangalle.</li>
+                    <li>This is arguably the most beautiful beach on the south coast—pristine, golden sand, and very
+                        quiet.</li>
+                </ul>
+
+                <h3 class="text-day">🏖️ Afternoon: Hiriketiya Bay</h3>
+                <ul>
+                    <li>Arrive in <strong>Hiriketiya ("Hiri")</strong>. It’s a small, jungle-fringed horseshoe bay.</li>
+                    <li>Relax under the trees. While it's a surf spot, the vibe is super chilled.</li>
+                </ul>
+
+                <div class="feature-box">
+                    🍽️ <strong>Food & Drink:</strong><br>
+                    • Lunch: <span class="food-spot">Dots Bay House</span> - A hip spot for food and drinks.<br>
+                    • Dinner: <span class="food-spot">Smoke & Bitters</span> - Rated one of Asia's 50 Best Bars.
+                    Creative cocktails and dinner right on the beach.
+                </div>
+            </div>
+        </div>
+
+        <!-- Day 5 -->
+        <div class="day-card hill" id="day5" onclick="toggleDay(this)">
+            <div class="day-header">
+                <div class="day-title-group">
+                    <span class="day-number">05</span>
+                    <div>
+                        <div class="region-label tag-hill">Hill Country</div>
+                        <h2 class="day-title">Ascent to the Highlands</h2>
+                        <span class="day-tag">Dec 1</span>
+                    </div>
+                </div>
+                <span class="accordion-icon">▼</span>
+            </div>
+            <div class="day-content">
+                <div class="info-grid">
+                    <div class="info-item">
+                        <span class="info-icon">🚗</span>
+                        <div><strong>Drive:</strong> Hiriketiya ➝ Ella<br>~4 - 5 hours</div>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-icon">🛌</span>
+                        <div><strong>Sleep:</strong> Ella (Night 1)</div>
+                    </div>
+                </div>
+
+                <h3 class="text-day">⛰️ The Drive Up</h3>
+                <ul>
+                    <li>Depart the coast. The road winds up from sea level to ~1000m.</li>
+                    <li><strong>Standard Stop:</strong> <strong>Ravana Falls</strong>. A massive waterfall right next to
+                        the main road. Easy and convenient.</li>
+                </ul>
+
+                <div class="option-box">
+                    <strong>🧗 Adventure Alternative:</strong> <strong>Diyaluma Falls</strong><br>
+                    Instead of the direct route, drive via Wellawaya to see <strong>Diyaluma Falls</strong> (2nd highest
+                    in Sri Lanka). Hike ~45 mins to the top to swim in natural "infinity pools" at the edge of the
+                    cliff. <br><em>Note: Takes significantly longer than Ravana Falls. Choose this only if you want a
+                        big adventure.</em>
+                </div>
+
+                <h3 class="text-day">🚂 Afternoon: Nine Arch Bridge</h3>
+                <ul>
+                    <li>Arrive in Ella (Cooler climate! ~20°C).</li>
+                    <li>Visit the <strong>Nine Arch Bridge</strong> in Demodara.</li>
+                    <li><strong>Timing:</strong> Try to be there around 4:00 PM. A train usually passes then, creating a
+                        "Harry Potter" style scene.</li>
+                </ul>
+
+                <h3 class="text-evening">🌃 Evening: Ella Vibe</h3>
+                <ul>
+                    <li>Ella is a backpacker hub. Stroll the main street and enjoy the cool mountain air.</li>
+                </ul>
+
+                <div class="feature-box">
+                    🍽️ <strong>Food & Drink:</strong><br>
+                    • Dinner: <span class="food-spot">Cafe Chill</span> - The most famous spot in town, good vibes and
+                    diverse menu.<br>
+                    • Dinner Alternative: <span class="food-spot">The White Rabbit</span> - A boho-style restaurant with
+                    great cocktails and tacos if you want a break from curry.<br>
+                    • Hidden Gem: <span class="food-spot">Sintha Bara Lonthe</span> - A "jungle bar" vibe with lanterns
+                    and good cocktails.
+                </div>
+            </div>
+        </div>
+
+        <!-- Day 6 -->
+        <div class="day-card hill" id="day6" onclick="toggleDay(this)">
+            <div class="day-header">
+                <div class="day-title-group">
+                    <span class="day-number">06</span>
+                    <div>
+                        <div class="region-label tag-hill">Hill Country</div>
+                        <h2 class="day-title">Views & Tea (No Shopping)</h2>
+                        <span class="day-tag">Dec 2</span>
+                    </div>
+                </div>
+                <span class="accordion-icon">▼</span>
+            </div>
+            <div class="day-content">
+                <div class="info-grid">
+                    <div class="info-item">
+                        <span class="info-icon">🚗</span>
+                        <div><strong>Drive:</strong> Local Ella<br>Short Tuk-tuk rides</div>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-icon">🛌</span>
+                        <div><strong>Sleep:</strong> Ella (Night 2)</div>
+                    </div>
+                </div>
+
+                <h3 class="text-morning">🥾 Morning: Little Adam's Peak</h3>
+                <ul>
+                    <li>Hike <strong>Little Adam's Peak</strong>. It is an easy 30-45 minute walk (mostly flat with some
+                        stairs at the end).</li>
+                    <li><span class="photo-spot">📸 Photo Spot</span> The summit offers a 360° panoramic view of the
+                        Ella Gap and Ella Rock.</li>
+                </ul>
+
+                <h3 class="text-day">🍵 Late Morning: Tea Experience</h3>
+                <ul>
+                    <li>Visit <strong>Uva Halpewatte Tea Factory</strong>.</li>
+                    <li>Take a tour to see the machinery and process of making Ceylon tea. Enjoy a tasting of different
+                        grades.</li>
+                </ul>
+
+                <h3 class="text-day">🧗 Afternoon: Adventure or Chill</h3>
+                <ul>
+                    <li>Option: <strong>Flying Ravana Zipline</strong> (near Little Adam's Peak) for an adrenaline rush.
+                    </li>
+                    <li>Or simply relax in town with an Ayurvedic massage.</li>
+                </ul>
+
+                <div class="feature-box">
+                    🍽️ <strong>Food & Drink:</strong><br>
+                    • Authentic Cheap Eats: <span class="food-spot">Matey Hut</span> - Tiny spot famous for the best
+                    rice & curry in town.<br>
+                    • View: <span class="food-spot">Ak Ristoro</span> - Good pasta/tapas if you need a break from curry.
+                </div>
+            </div>
+        </div>
+
+        <!-- Day 7 -->
+        <div class="day-card hill" id="day7" onclick="toggleDay(this)">
+            <div class="day-header">
+                <div class="day-title-group">
+                    <span class="day-number">07</span>
+                    <div>
+                        <div class="region-label tag-hill">Hill Country</div>
+                        <h2 class="day-title">The Scenic Train Ride</h2>
+                        <span class="day-tag">Dec 3</span>
+                    </div>
+                </div>
+                <span class="accordion-icon">▼</span>
+            </div>
+            <div class="day-content">
+                <div class="info-grid">
+                    <div class="info-item">
+                        <span class="info-icon">🚂</span>
+                        <div><strong>Train:</strong> Ella ➝ Nanu Oya<br>~3 hours</div>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-icon">🛌</span>
+                        <div><strong>Sleep:</strong> Nuwara Eliya</div>
+                    </div>
+                </div>
+
+                <h3 class="text-day">🚂 The Journey</h3>
+                <ul>
+                    <li>Board the morning train (~9:00 AM) from Ella to Nanu Oya.</li>
+                    <li>This is one of the world's most scenic rides. Pass through mist, tea estates, and waterfalls.
+                    </li>
+                    <li><strong>Experience:</strong> Stand by the open door (hold on tight!) to feel the cool mist and
+                        breeze.</li>
+                </ul>
+
+                <h3 class="text-day">🇬🇧 Afternoon: Nuwara Eliya</h3>
+                <ul>
+                    <li>Transfer to <strong>Nuwara Eliya</strong> (Alt 1,868m). It feels like an English country
+                        village.</li>
+                    <li>See the colonial Post Office and walk around <strong>Gregory Lake</strong>.</li>
+                </ul>
+
+                <div class="option-box">
+                    <strong>🛕 Cultural Option:</strong> <strong>Seetha Amman Temple</strong><br>
+                    Located in Seetha Eliya (just outside town), this colorful Hindu temple is dedicated to Sita from
+                    the Ramayana epic. It is right by the road and easy to visit.
+                </div>
+
+                <h3 class="text-food">🍰 Treat: High Tea</h3>
+                <ul>
+                    <li>Go to the <strong>Grand Hotel</strong> for High Tea on the lawn or terrace (~3:30 PM). It’s a
+                        throwback to the colonial era with manicured gardens.</li>
+                </ul>
+
+                <div class="feature-box">
+                    🍽️ <strong>Food & Drink:</strong><br>
+                    • Dinner: <span class="food-spot">The Pub</span> or <span class="food-spot">Grand Indian</span>.<br>
+                    • Note: It gets cold at night (10-15°C). Enjoy a fireplace!
+                </div>
+            </div>
+        </div>
+
+        <!-- Day 8 -->
+        <div class="day-card hill" id="day8" onclick="toggleDay(this)">
+            <div class="day-header">
+                <div class="day-title-group">
+                    <span class="day-number">08</span>
+                    <div>
+                        <div class="region-label tag-hill">Hill Country</div>
+                        <h2 class="day-title">Waterfalls & The Sacred City</h2>
+                        <span class="day-tag">Dec 4</span>
+                    </div>
+                </div>
+                <span class="accordion-icon">▼</span>
+            </div>
+            <div class="day-content">
+                <div class="info-grid">
+                    <div class="info-item">
+                        <span class="info-icon">🚗</span>
+                        <div><strong>Drive:</strong> Nuwara Eliya ➝ Kandy<br>~3 hours</div>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-icon">🛌</span>
+                        <div><strong>Sleep:</strong> Kandy (1 Night)</div>
+                    </div>
+                </div>
+
+                <h3 class="text-day">🌊 The Scenic Drive</h3>
+                <ul>
+                    <li>Drive down the winding roads (A5 Highway) towards Kandy.</li>
+                    <li><strong>Stop:</strong> <strong>Ramboda Falls</strong> (100m cascade). Best viewed from the
+                        Ramboda Falls Hotel (you can walk down).</li>
+                    <li><strong>Stop:</strong> <strong>Damro Labookellie Tea Lounge</strong> for a slice of chocolate
+                        cake and tea with a view of the plantations.</li>
+                    <li><strong>Stop:</strong> Viewpoint for <strong>Kotmale Reservoir</strong>.</li>
+                </ul>
+
+                <div class="option-box">
+                    <strong>🗼 Detour Option:</strong> <strong>Ambuluwawa Tower</strong><br>
+                    A spiraling white tower in Gampola (known for "dizzying" social media photos).<br>
+                    <em>Logistics:</em> Located before Kandy. Requires a tuk-tuk ride up a steep hill and adds ~1.5 - 2
+                    hours to your trip. Only do this if you leave Nuwara Eliya very early (7:00 AM).
+                </div>
+
+                <h3 class="text-evening">🛕 Evening: Sacred Kandy</h3>
+                <ul>
+                    <li>Arrive in Kandy. Walk around the iconic <strong>Kandy Lake</strong>.</li>
+                    <li>Visit the <strong>Temple of the Sacred Tooth Relic</strong>.</li>
+                    <li><strong>Timing:</strong> Go for the 6:30 PM <em>Puja</em> ceremony to hear the traditional
+                        drummers and see the temple illuminated.</li>
+                </ul>
+
+                <div class="feature-box">
+                    🍽️ <strong>Food & Drink:</strong><br>
+                    • Dinner: <span class="food-spot">Slightly Chilled Lounge</span> (Bamboo Garden) - Great sunset
+                    views over the lake and cold beer.<br>
+                    • Local: <span class="food-spot">Balaji Dosai</span> - Famous, cheap, and delicious South Indian
+                    dosa.
+                </div>
+            </div>
+        </div>
+
+        <!-- Day 9 -->
+        <div class="day-card culture" id="day9" onclick="toggleDay(this)">
+            <div class="day-header">
+                <div class="day-title-group">
+                    <span class="day-number">09</span>
+                    <div>
+                        <div class="region-label tag-culture">Culture Triangle</div>
+                        <h2 class="day-title">Gardens, Caves & Rock Views</h2>
+                        <span class="day-tag">Dec 5</span>
+                    </div>
+                </div>
+                <span class="accordion-icon">▼</span>
+            </div>
+            <div class="day-content">
+                <div class="info-grid">
+                    <div class="info-item">
+                        <span class="info-icon">🚗</span>
+                        <div><strong>Drive:</strong> Kandy ➝ Sigiriya<br>~2.5 hours</div>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-icon">🛌</span>
+                        <div><strong>Sleep:</strong> Sigiriya or Habarana</div>
+                    </div>
+                </div>
+
+                <h3 class="text-morning">🌸 Morning: Botanical Gardens</h3>
+                <ul>
+                    <li>Visit <strong>Royal Botanical Gardens (Peradeniya)</strong> just outside Kandy.</li>
+                    <li>Highlights: <strong>The Orchid House</strong>, the <strong>Avenue of Palms</strong>, and the
+                        <strong>giant Java Fig tree</strong>. Look up to see
+                        giant fruit bats roosting.
+                    </li>
+                </ul>
+
+                <h3 class="text-day">☸️ Afternoon: Dambulla Caves</h3>
+                <ul>
+                    <li>Drive north to the Cultural Triangle.</li>
+                    <li>Explore <strong>Dambulla Cave Temples</strong> (UNESCO). Climb the stairs to see 5 caves filled
+                        with 150+ Buddha statues and ceiling murals.</li>
+                </ul>
+
+                <div class="warning-box">
+                    ⚠️ <strong>Pro Tip:</strong> Go to the "Golden Temple" entrance first to buy tickets! If you hike up
+                    the stairs from the other side first, you'll have to walk all the way back down to buy them.
+                </div>
+
+                <h3 class="text-evening">🌄 Sunset: Pidurangala Rock (Not Sigiriya)</h3>
+                <ul>
+                    <li>Arrive in Sigiriya. Instead of climbing Lion Rock, hike <strong>Pidurangala Rock</strong> (~4:00
+                        PM).</li>
+                    <li>The hike is adventurous (some bouldering at the top) but short (30 mins).</li>
+                    <li><span class="photo-spot">📸 Photo Spot</span> The best view OF Sigiriya Lion Rock is from here.
+                        Watch the sun set behind the fortress.</li>
+                </ul>
+
+                <div class="feature-box">
+                    🍽️ <strong>Food & Drink:</strong><br>
+                    • Dinner: <span class="food-spot">Wijesiri Family Restaurant</span> - Authentic village food.<br>
+                    • Alternative: <span class="food-spot">Rastarant</span> - Chill vibes and reggae music in Sigiriya.
+                </div>
+            </div>
+        </div>
+
+        <!-- Day 10 -->
+        <div class="day-card culture" id="day10" onclick="toggleDay(this)">
+            <div class="day-header">
+                <div class="day-title-group">
+                    <span class="day-number">10</span>
+                    <div>
+                        <div class="region-label tag-culture">Culture Triangle</div>
+                        <h2 class="day-title">Ancient Ruins & Drive to Capital</h2>
+                        <span class="day-tag">Dec 6</span>
+                    </div>
+                </div>
+                <span class="accordion-icon">▼</span>
+            </div>
+            <div class="day-content">
+                <div class="info-grid">
+                    <div class="info-item">
+                        <span class="info-icon">🚗</span>
+                        <div><strong>Drive:</strong> Sigiriya ➝ Polonnaruwa ➝ Colombo<br>Total ~6-7 hours driving</div>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-icon">🛌</span>
+                        <div><strong>Sleep:</strong> Colombo City</div>
+                    </div>
+                </div>
+
+                <h3 class="text-morning">🏛️ Morning: Polonnaruwa</h3>
+                <ul>
+                    <li>Drive 1 hr to <strong>Polonnaruwa</strong> (11th Century Capital).</li>
+                    <li>Visit the <strong>Royal Palace</strong> ruins and the <strong>Quadrangle</strong> (Vatadage).
+                    </li>
+                    <li><strong>Highlight:</strong> <strong>Gal Vihara</strong>—four magnificent Buddhas carved from a
+                        single granite rock face.</li>
+                </ul>
+
+                <h3 class="text-day">🚗 Afternoon: To the Capital</h3>
+                <ul>
+                    <li>Depart around 2:00 PM for the drive to Colombo (approx. 5-6 hours).</li>
+                    <li>Arrive in Colombo by evening. Check in and freshen up.</li>
+                </ul>
+
+                <div class="feature-box">
+                    🍽️ <strong>Food & Drink:</strong><br>
+                    • Dinner: Explore the <span class="food-spot">Old Dutch Hospital</span> precinct (e.g., Ministry of
+                    Crab if you splurge, or casual cafes).<br>
+                    • Late Night: <span class="food-spot">Hotel De Pilawoos</span> for a legendary cheese kottu.
+                </div>
+            </div>
+        </div>
+
+        <!-- Day 11 -->
+        <div class="day-card city" id="day11" onclick="toggleDay(this)">
+            <div class="day-header">
+                <div class="day-title-group">
+                    <span class="day-number">11</span>
+                    <div>
+                        <div class="region-label tag-city">The Capital</div>
+                        <h2 class="day-title">Colombo City & Departure</h2>
+                        <span class="day-tag">Dec 7</span>
+                    </div>
+                </div>
+                <span class="accordion-icon">▼</span>
+            </div>
+            <div class="day-content">
+                <div class="info-grid">
+                    <div class="info-item">
+                        <span class="info-icon">🚗</span>
+                        <div><strong>Drive:</strong> City Tour ➝ Airport<br>~45 mins to airport</div>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-icon">✈️</span>
+                        <div><strong>Flight:</strong> 9:35 PM Departure</div>
+                    </div>
+                </div>
+
+                <h3 class="text-day">🏙️ City Highlights</h3>
+                <ul>
+                    <li><strong>Gangaramaya Temple</strong>: An eclectic mix of architecture with a museum. Visit the
+                        floating <strong>Seema Malakaya</strong> shrine nearby on Beira Lake.</li>
+                    <li><strong>Pettah Market</strong>: Drive through or walk the chaotic bazaar. See the <strong>Red
+                            Mosque (Jami Ul-Alfar)</strong> from the street.</li>
+                    <li><strong>Independence Square</strong>: A beautiful open-air colonial monument.</li>
+                </ul>
+
+                <h3 class="text-evening">🌅 Farewell Sunset Drinks</h3>
+                <ul>
+                    <li>Head to the historic <strong>Galle Face Hotel</strong> (right next to <strong>Galle Face
+                            Green</strong>).</li>
+                    <li>Sit on the "<strong>Traveller's Bar</strong>" terrace with a drink to watch the sunset over the
+                        ocean. It is a
+                        classic colonial experience and much more relaxing than standing in the park before a flight.
+                    </li>
+                    <li>Depart for the Airport by 6:30 PM.</li>
+                </ul>
+
+                <div class="feature-box">
+                    🍽️ <strong>Food & Drink:</strong><br>
+                    • Lunch: <span class="food-spot">Upali's</span> - Great Sri Lankan rice & curry.<br>
+                    • Snack: <span class="food-spot">T-Lounge by Dilmah</span> (Chatham St) for a final fancy tea and
+                    crepe.
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>Ayubowan! (May you live long) • Sri Lanka Trip 2025</p>
+            <p style="font-size: 0.8rem; opacity: 0.7;">Created with 💙 for your journey</p>
+        </footer>
+        <!-- Floating Action Buttons -->
+        <div class="fab-container">
+            <button class="fab" onclick="toggleTheme()" aria-label="Toggle theme">
+                <span id="theme-icon">🌙</span>
+            </button>
+            <button class="fab" onclick="togglePopup('nav-menu')" aria-label="Go to day">
+                📍
+            </button>
+            <button class="fab" onclick="togglePopup('currency')" aria-label="Currency rates">
+                💰
+            </button>
+            <button class="fab" onclick="togglePopup('phrases')" aria-label="Key phrases">
+                🗣️
+            </button>
+            <button class="fab" onclick="togglePopup('emergency')" aria-label="Emergency numbers">
+                🆘
+            </button>
+            <button class="fab" onclick="expandAll()" aria-label="Expand/Collapse all">
+                ↕️
+            </button>
+        </div>
+
+        <!-- Bottom Navigation Bar (Mobile Only) -->
+        <div class="bottom-nav">
+            <button class="bottom-nav-btn" onclick="togglePopup('nav-menu')" aria-label="Go to day">
+                📍
+            </button>
+            <button class="bottom-nav-btn" onclick="togglePopup('currency')" aria-label="Currency rates">
+                💰
+            </button>
+            <button class="bottom-nav-btn" onclick="togglePopup('phrases')" aria-label="Key phrases">
+                🗣️
+            </button>
+            <button class="bottom-nav-btn" onclick="togglePopup('emergency')" aria-label="Emergency numbers">
+                🆘
+            </button>
+            <button class="bottom-nav-btn" onclick="expandAll()" aria-label="Expand/Collapse all">
+                ↕️
+            </button>
+        </div>
+
+
+        <!-- Popups -->
+        <div id="nav-menu" class="popup">
+            <button class="popup-close" onclick="togglePopup('nav-menu')" aria-label="Close">×</button>
+            <h3>Jump to Day</h3>
+            <div style="display: grid; gap: 8px; max-height: 300px; overflow-y: auto;">
+                <a href="#day1" class="btn" onclick="togglePopup('nav-menu')"
+                    style="justify-content: flex-start; background: var(--bg); color: var(--text); border: 1px solid var(--border); border-bottom: 1px solid var(--border); text-decoration: none;">Day
+                    1: Arrival</a>
+                <a href="#day2" class="btn" onclick="togglePopup('nav-menu')"
+                    style="justify-content: flex-start; background: var(--bg); color: var(--text); border: 1px solid var(--border); border-bottom: 1px solid var(--border); text-decoration: none;">Day
+                    2: South Coast</a>
+                <a href="#day5" class="btn" onclick="togglePopup('nav-menu')"
+                    style="justify-content: flex-start; background: var(--bg); color: var(--text); border: 1px solid var(--border); border-bottom: 1px solid var(--border); text-decoration: none;">Day
+                    5: Ella</a>
+                <a href="#day8" class="btn" onclick="togglePopup('nav-menu')"
+                    style="justify-content: flex-start; background: var(--bg); color: var(--text); border: 1px solid var(--border); border-bottom: 1px solid var(--border); text-decoration: none;">Day
+                    8: Kandy</a>
+                <a href="#day9" class="btn" onclick="togglePopup('nav-menu')"
+                    style="justify-content: flex-start; background: var(--bg); color: var(--text); border: 1px solid var(--border); border-bottom: 1px solid var(--border); text-decoration: none;">Day
+                    9: Culture</a>
+                <a href="#day11" class="btn" onclick="togglePopup('nav-menu')"
+                    style="justify-content: flex-start; background: var(--bg); color: var(--text); border: 1px solid var(--border); border-bottom: 1px solid var(--border); text-decoration: none;">Day
+                    11: Colombo</a>
+            </div>
+        </div>
+
+        <div id="currency" class="popup">
+            <button class="popup-close" onclick="togglePopup('currency')" aria-label="Close">×</button>
+            <h3>Currency Cheat Sheet</h3>
+            <p style="font-size: 0.8rem; opacity: 0.7;">Approximate rates (Nov 2025)</p>
+            <table class="currency-table">
+                <tr>
+                    <td>1 EUR</td>
+                    <td>≈ 320 LKR</td>
+                </tr>
+                <tr>
+                    <td>10 EUR</td>
+                    <td>≈ 3,200 LKR</td>
+                </tr>
+                <tr>
+                    <td>1 AED</td>
+                    <td>≈ 85 LKR</td>
+                </tr>
+                <tr>
+                    <td>10 AED</td>
+                    <td>≈ 850 LKR</td>
+                </tr>
+                <tr>
+                    <td>100 AED</td>
+                    <td>≈ 8,500 LKR</td>
+                </tr>
+            </table>
+        </div>
+
+        <div id="emergency" class="popup">
+            <button class="popup-close" onclick="togglePopup('emergency')" aria-label="Close">×</button>
+            <h3>Emergency Numbers</h3>
+            <div style="display: grid; gap: 10px;">
+                <a href="tel:119" class="btn"
+                    style="background: #ef4444; color: white; justify-content: center; border: none; text-decoration: none;">👮
+                    Police (119)</a>
+                <a href="tel:1912" class="btn"
+                    style="background: #0e7490; color: white; justify-content: center; border: none; text-decoration: none;">🚔
+                    Tourist Police
+                    (1912)</a>
+                <a href="tel:1990" class="btn"
+                    style="background: #15803d; color: white; justify-content: center; border: none; text-decoration: none;">🚑
+                    Ambulance
+                    (1990)</a>
+            </div>
+        </div>
+
+
+
+
+        <div id="phrases" class="popup">
+            <button class="popup-close" onclick="togglePopup('phrases')" aria-label="Close">×</button>
+            <h3>Key Phrases</h3>
+            <ul style="margin-top: 5px; font-size: 1rem; line-height: 1.8;">
+                <li>Hello: <strong>Ayubowan</strong></li>
+                <li>Thank you: <strong>Stuthi</strong></li>
+                <li>No Spicy: <strong>Sera epa</strong></li>
+                <li>How much?: <strong>Keeyada?</strong></li>
+            </ul>
+        </div>
+
+        <script>
+            // --- UI Logic ---
+            function toggleDay(element) {
+                // Don't toggle if clicking a link or checkbox
+                if (event.target.tagName === 'A' || event.target.tagName === 'INPUT' || event.target.closest('.checklist li')) return;
+                element.classList.toggle('open');
+            }
+
+            function expandAll() {
+                const cards = document.querySelectorAll('.day-card');
+                const allOpen = Array.from(cards).every(c => c.classList.contains('open'));
+
+                cards.forEach(card => {
+                    if (allOpen) {
+                        card.classList.remove('open');
+                    } else {
+                        card.classList.add('open');
+                    }
+                });
+            }
+
+            function togglePopup(id) {
+                const popup = document.getElementById(id);
+                const isActive = popup.classList.contains('active');
+
+                // Close all
+                document.querySelectorAll('.popup').forEach(p => p.classList.remove('active'));
+
+                if (!isActive) {
+                    popup.classList.add('active');
+                }
+            }
+
+            // Close popups when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!e.target.closest('.popup') && !e.target.closest('.fab') && !e.target.closest('.bottom-nav-btn')) {
+                    document.querySelectorAll('.popup').forEach(p => p.classList.remove('active'));
+                }
+            });
+
+            // --- Dark Mode ---
+            function toggleTheme() {
+                document.body.classList.toggle('dark-mode');
+                const isDark = document.body.classList.contains('dark-mode');
+                localStorage.setItem('theme', isDark ? 'dark' : 'light');
+                updateThemeIcon();
+            }
+
+            function updateThemeIcon() {
+                const isDark = document.body.classList.contains('dark-mode');
+                const icon = document.getElementById('theme-icon');
+                if (icon) icon.textContent = isDark ? '☀️' : '🌙';
+            }
+
+            // Initialize Theme
+            if (localStorage.getItem('theme') === 'dark' ||
+                (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.body.classList.add('dark-mode');
+            }
+            updateThemeIcon();
+
+            // --- Checklists ---
+            document.addEventListener('DOMContentLoaded', () => {
+                // 1. Convert lists to checklists
+                const lists = document.querySelectorAll('.day-content ul');
+                lists.forEach((ul, dayIndex) => {
+                    ul.classList.add('checklist');
+                    const items = ul.querySelectorAll('li');
+
+                    items.forEach((li, itemIndex) => {
+                        const id = `item-${dayIndex}-${itemIndex}`;
+
+                        // Restore state
+                        if (localStorage.getItem(id) === 'done') {
+                            li.classList.add('checked');
+                        }
+
+                        // Click handler
+                        li.addEventListener('click', () => {
+                            li.classList.toggle('checked');
+                            if (li.classList.contains('checked')) {
+                                localStorage.setItem(id, 'done');
+                            } else {
+                                localStorage.removeItem(id);
+                            }
+                        });
+                    });
+                });
+
+                // 2. Auto-link Locations
+                const excludeTerms = ['Drive:', 'Sleep:', 'Note:', 'Tip:', 'Food & Drink:', 'Arrival:', 'Activity:', 'Sunset:', 'Must-Do:', 'Stop:', 'Stop 1:', 'Stop 2:', 'Highlight:', 'Timing:', 'Pro Tip (Transport):', 'Pro Tip:', 'Train:', 'Experience:', 'Alternative Options (Choose one):', 'Standard Stop:', '🧗 Adventure Alternative:', '🛕 Cultural Option:', '🗼 Detour Option:'];
+
+                // Helper to link text
+                const createMapLink = (text) => {
+                    const link = document.createElement('a');
+                    link.href = `https://maps.google.com/?q=${encodeURIComponent(text + ' Sri Lanka')}`;
+                    link.target = '_blank';
+                    link.className = 'map-link';
+                    link.textContent = text;
+                    return link;
+                };
+
+                // A. Link <strong> tags
+                const strongTags = document.querySelectorAll('.day-content strong');
+                strongTags.forEach(strong => {
+                    const text = strong.textContent.trim();
+                    if (excludeTerms.includes(text)) return;
+
+                    strong.innerHTML = '';
+                    strong.appendChild(createMapLink(text));
+                });
+
+                // B. Link .food-spot spans
+                const foodSpots = document.querySelectorAll('.food-spot');
+                foodSpots.forEach(span => {
+                    const text = span.textContent.trim();
+                    span.innerHTML = '';
+                    span.appendChild(createMapLink(text));
+                    // Keep the color style of the span, the link will inherit or be styled
+                    span.querySelector('a').style.color = 'inherit';
+                });
+
+                // Open first day
+                const firstDay = document.getElementById('day1');
+                if (firstDay) firstDay.classList.add('open');
+
+                // --- Scroll Reveal ---
+                const observerOptions = {
+                    root: null,
+                    rootMargin: '0px',
+                    threshold: 0.1
+                };
+
+                const observer = new IntersectionObserver((entries, observer) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('is-visible');
+                            observer.unobserve(entry.target); // Only animate once
+                        }
+                    });
+                }, observerOptions);
+
+                document.querySelectorAll('.day-card').forEach(card => {
+                    card.classList.add('reveal-on-scroll');
+                    observer.observe(card);
+                });
+
+                // --- Service Worker Registration ---
+                if ('serviceWorker' in navigator) {
+                    window.addEventListener('load', () => {
+                        navigator.serviceWorker.register('../sw.js')
+                            .then(registration => {
+                                console.log('ServiceWorker registration successful');
+                            }, err => {
+                                console.log('ServiceWorker registration failed: ', err);
+                            });
+                    });
+                }
+            });
+        </script>
+
+</body>
+
+</html>
